@@ -83,7 +83,7 @@ const BookingForm = () => {
 
     try {
       const { data: order } = await axios.post(
-        "http://localhost:5000/api/create-order",
+        "https://md-ali-salon.up.railway.app/api/create-order",
         { amount, bookingId }
       );
 
@@ -95,7 +95,7 @@ const BookingForm = () => {
         name: "H₂O The Men's Salon",
         description: "Appointment Payment",
         handler: async (response) => {
-          await axios.post("http://localhost:5000/api/verify-payment", {
+          await axios.post("https://md-ali-salon.up.railway.app/api/verify-payment", {
             ...response,
             email,
             fullName,
@@ -133,7 +133,7 @@ const BookingForm = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/book", {
+      const res = await fetch("https://md-ali-salon.up.railway.app/api/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
