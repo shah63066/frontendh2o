@@ -53,6 +53,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>© 2025 H<sub>2</sub>O The Men's Salon. All Rights Reserved.</p>
+        <p>Designed & Developed By FryumTech</p>
       </div>
     </footer>
   );
