@@ -1,0 +1,140 @@
+/* ===== General Reset (Can be moved to a global CSS file) ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+header {
+    background: #000;
+    padding: 16px 6%;
+    box-shadow: 0 4px 20px rgba(255, 140, 0, 0.2);
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: orange;
+    letter-spacing: 1px;
+}
+
+/* ===== MENU ===== */
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #eee;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 4px;
+    position: relative;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* ===== HOVER ===== */
+.nav-links li a:hover {
+    color: orange;
+}
+
+/* ===== ACTIVE UNDERLINE (SMOOTH) ===== */
+.nav-links li a::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: orange;
+    box-shadow: 0 0 10px orange;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.nav-links li a.active {
+    color: orange;
+    font-weight: 600;
+}
+
+.nav-links li a.active::after {
+    transform: scaleX(1);
+}
+
+/* ===== CLICK SMOOTH EFFECT ===== */
+.nav-links li a:active {
+    transform: scale(0.96);
+}
+
+/* ===== OFFER/APPOINTMENT BUTTONS ===== */
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, orange, orangered);
+    color: black !important;
+
+    padding: 12px 32px !important;
+    border-radius: 30px;
+    font-weight: 600;
+
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
+    line-height: normal;
+}
+
+.nav-btn:hover {
+    background: white;
+    box-shadow: 0 0 20px orange;
+}
+
+
+
+/* ===== MOBILE VIEW @media queries ===== */
+.menu-toggle {
+    font-size: 28px;
+    color: white;
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 75px; /* Aligns below the header bar */
+        left: 0;
+        width: 100%;
+        background: black;
+        flex-direction: column;
+        padding: 20px;
+        display: none;
+        z-index: 10; /* Ensure menu is above other content */
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}

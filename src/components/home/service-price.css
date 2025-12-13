@@ -1,0 +1,138 @@
+.main-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, orange, orangered, orange);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+  text-shadow: 0 0 20px rgba(255, 140, 0, 0.5),
+    0 0 40px rgba(255, 140, 0, 0.3);
+}
+
+.page {
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 15px; /* Add some padding for smaller screens */
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px 20px; /* 30px = row gap | 20px = column gap */
+  margin-bottom: 40px;
+}
+
+.card {
+  display: flex;
+  gap: 15px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #000;
+  transition: 0.25s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.thumb {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ffb86c;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.meta p {
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.price {
+  margin-left: auto;
+  font-size: 20px;
+  color: #ffb86c;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+  }
+
+  .thumb {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+    gap: 20px 0;
+  }
+
+  .card {
+    flex-direction: row; /* Keep row layout */
+    padding: 12px;
+  }
+
+  .thumb {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .main-title {
+    font-size: 28px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .thumb {
+    margin-bottom: 10px;
+  }
+
+  .price {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,208 @@
+:root {
+  --accent: #0b84ff;
+  --accent-hover: #076fe0;
+  --bg: #ffffff;
+  --muted: #666;
+  --shadow: 0 6px 20px rgba(11, 132, 255, 0.12);
+  --radius: 14px;
+  --small-radius: 10px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* reset small */
+* {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0;
+  background: #f4f6fb;
+  color: #111;
+  height: 100vh
+}
+
+/* CHAT BUTTON (circle) */
+.chat-btn {
+  position: fixed;
+  right: 30px;
+  bottom: 100px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .12s ease, background .12s;
+  z-index: 999;
+  border: none;
+}
+
+
+.chat-btn:active {
+  transform: scale(.97)
+}
+
+.chat-btn:hover {
+  background: var(--accent-hover)
+}
+
+/* CHAT BOX */
+
+.chat-box {
+  position: fixed;
+  right: 30px;
+  bottom: 170px;
+  width: 340px;
+  height: 440px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+  display: flex;
+  /* ← IMPORTANT */
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 998;
+}
+
+
+.chat-header {
+  padding: 0px 16px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header .title {
+  display: flex;
+  gap: 10px;
+  align-items: center
+}
+
+.chat-header .close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 16px;
+  cursor: pointer;
+  padding: -40px;
+  border-radius: 8px;
+}
+
+.chat-header .close-btn:hover {
+  background: rgba(255, 255, 255, 0.06)
+}
+
+
+.chat-body {
+  padding: 12px;
+  flex: 1;
+  /* ← auto adjust height */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(180deg, #fbfdff, #f7f9ff);
+}
+
+
+.message {
+  max-width: 78%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.35;
+  box-shadow: 0 2px 6px rgba(16, 24, 40, 0.04);
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(180deg, #e6f2ff, #d7ebff);
+  color: #03224c;
+  border-bottom-right-radius: 6px;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: #fff;
+  color: #111;
+  border-bottom-left-radius: 6px;
+}
+
+/* INPUT AREA */
+.chat-input {
+  padding: 12px;
+  border-top: 1px solid #edf2fb;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #fff;
+}
+
+.chat-input .input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  background: #f3f7ff;
+  border-radius: var(--small-radius);
+  padding: 8px;
+}
+
+.chat-input input[type="text"] {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  padding: 6px 4px;
+  color: #0b1b2b;
+}
+
+/* send button (square) */
+.send-btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(11, 132, 255, 0.14);
+  transition: transform .12s, background .12s;
+}
+
+.send-btn:disabled {
+  opacity: .48;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.send-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: white;
+}
+
+
+
+/* Extra space so chat box does NOT overlap WhatsApp button */
+@media (max-width: 480px) {
+
+  /* chat box ko WhatsApp btn se upar rakhne ke liye */
+  .chat-box {
+    bottom: 160px !important;   /* पहले 84px था → अब ऊपर shift */
+  }
+
+  /* chat button ko bhi thoda upar */
+  .chat-btn {
+    bottom: 100px !important;    /* WhatsApp btn se takra na kare */
+  }
+}

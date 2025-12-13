@@ -1,0 +1,9 @@
+.contact-container{
+    margin-top: 100px;
+}
+.contact-container h1{
+    color :red;
+}
+.contact-container p{
+    color:yellow;
+}

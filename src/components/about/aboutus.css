@@ -1,0 +1,9 @@
+.about-container{
+    margin-top: 100px;
+}
+.about-container h1{
+    color :red;
+}
+.about-container p{
+    color:yellow;
+}
