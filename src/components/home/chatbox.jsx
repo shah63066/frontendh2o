@@ -1,47 +1,64 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./chatbox.css"; 
+import "./chatbox.css";
 
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [messages, setMessages] = useState([
-    { text: "Hello! Type a message and press send.", type: "bot" },
+    {
+      text: "👋 Hello! Ask me about services, prices, timing , booking , barber , payment , location .",
+      type: "bot",
+    },
   ]);
 
   const chatBodyRef = useRef(null);
   const chatInputRef = useRef(null);
 
-  // scroll to bottom whenever messages change
+  // Auto scroll
   useEffect(() => {
     if (chatBodyRef.current) {
       chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
     }
   }, [messages]);
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-    // focus input when opening
-    if (!isOpen) {
-      setTimeout(() => chatInputRef.current?.focus(), 80);
-    }
-  };
-
   const closeChat = () => setIsOpen(false);
 
-  const handleSend = () => {
+  // ✅ REAL SEND FUNCTION
+  const handleSend = async () => {
     const text = inputValue.trim();
     if (!text) return;
 
     setMessages((prev) => [...prev, { text, type: "user" }]);
     setInputValue("");
+    setIsLoading(true);
 
-    // simulate bot response
-    setTimeout(() => {
+    try {
+      const res = await fetch(
+        "https://backend-h2osalon.up.railway.app//api/chat", // 🔴 CHANGE THIS
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text }),
+        }
+      );
+
+      const data = await res.json();
+
       setMessages((prev) => [
         ...prev,
-        { text: "Thanks — received: " + text, type: "bot" },
+        { text: data.reply, type: "bot" },
       ]);
-    }, 600);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        { text: "❌ Server error. Please try again.", type: "bot" },
+      ]);
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => chatInputRef.current?.focus(), 50);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -55,26 +72,19 @@ const ChatBox = () => {
     <>
       {/* Chat Button */}
       <button
-  className="chat-btn"
-  aria-label="Open chat"
-  onClick={() => setIsOpen((prev) => !prev)}
->
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path d="M20 2H4a2 2 0 0 0-2 2v14l4-3h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" fill="white"/>
-  </svg>
-</button>
+        className="chat-btn"
+        aria-label="Open chat"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <span>💬</span>
+      </button>
 
       {/* Chat Box */}
       {isOpen && (
-        <div className="chat-box" role="dialog" aria-label="Support chat window">
+        <div className="chat-box" role="dialog">
           <div className="chat-header">
-            <div className="title">
-              <strong>Support</strong>
-              {/* <small style={{ opacity: 0.82, fontWeight: 500, fontSize: 12 }}>
-                We're online
-              </small> */}
-            </div>
-            <button className="close-btn" onClick={closeChat} aria-label="Close chat">
+            <strong>H<sub>2</sub>O The Men's Salon Support</strong>
+            <button className="close-btn" onClick={closeChat}>
               ✕
             </button>
           </div>
@@ -85,34 +95,27 @@ const ChatBox = () => {
                 {msg.text}
               </div>
             ))}
+
+            {isLoading && (
+              <div className="message bot">Typing...</div>
+            )}
           </div>
 
           <div className="chat-input">
-            <div className="input-wrap">
-              <input
-                ref={chatInputRef}
-                type="text"
-                placeholder="Type a message..."
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-            </div>
+            <input
+              ref={chatInputRef}
+              type="text"
+              placeholder="Type your message..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
 
             <button
-              className="send-btn"
               onClick={handleSend}
-              disabled={!inputValue.trim()}
-              aria-label="Send message"
-              title="Send message"
+              disabled={!inputValue.trim() || isLoading}
             >
-              <svg
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-              </svg>
+              ➤
             </button>
           </div>
         </div>
