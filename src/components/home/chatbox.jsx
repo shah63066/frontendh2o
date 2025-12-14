@@ -36,7 +36,7 @@ const ChatBox = () => {
 
     try {
       const res = await fetch(
-        "https://backend-h2osalon.up.railway.app//api/chat", // 🔴 CHANGE THIS
+        "https://backend-h2osalon.up.railway.app/api/chat", // 🔴 CHANGE THIS
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
