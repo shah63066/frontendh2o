@@ -38,15 +38,16 @@ body {
   z-index: 999;
   border: none;
 }
+.chat-btn span{
+  font-size: 30px;
+}
 
 
 .chat-btn:active {
   transform: scale(.97)
 }
 
-.chat-btn:hover {
-  background: var(--accent-hover)
-}
+
 
 /* CHAT BOX */
 
@@ -68,7 +69,7 @@ body {
 
 
 .chat-header {
-  padding: 0px 16px;
+  padding: 20px 16px;
   background: linear-gradient(90deg, var(--accent), var(--accent-hover));
   color: white;
   font-weight: 600;
@@ -88,21 +89,19 @@ body {
   background: transparent;
   border: none;
   color: rgba(255, 255, 255, 0.95);
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
   padding: -40px;
-  border-radius: 8px;
 }
 
 .chat-header .close-btn:hover {
-  background: rgba(255, 255, 255, 0.06)
+  color: red;
 }
 
 
 .chat-body {
   padding: 12px;
   flex: 1;
-  /* ← auto adjust height */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -162,6 +161,21 @@ body {
   font-size: 14px;
   padding: 6px 4px;
   color: #0b1b2b;
+}
+
+.chat-input button{
+  background-color: #0b84ff;
+  padding: 3px 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+.chat-input button:hover{
+  box-shadow: 0 0 20px #0b1b2b;
+  transform: scale(1.05);
 }
 
 /* send button (square) */
