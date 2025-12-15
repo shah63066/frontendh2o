@@ -20,7 +20,7 @@ const BookingForm = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
-  // Service & Sub-Service Options
+  // Service & Sub-Service Options including quad combos
   const serviceOptions = {
     hair: [
       "Haircut",
@@ -30,7 +30,8 @@ const BookingForm = () => {
       "Haircut + Beard Trim",
       "Hair Spa + Hair Color",
       "Haircut + Beard Trim + Hair Color",
-      "Haircut + Hair Spa + Hair Color"
+      "Haircut + Hair Spa + Hair Color",
+      "Haircut + Hair Spa + Beard Trim + Hair Color" // Quad combo
     ],
     skin: [
       "Cleanup",
@@ -40,7 +41,8 @@ const BookingForm = () => {
       "Cleanup + Facial",
       "Facial + Glow Treatment",
       "Cleanup + Facial + Glow Treatment",
-      "De-tan + Facial + Glow Treatment"
+      "De-tan + Facial + Glow Treatment",
+      "Cleanup + Facial + De-tan + Glow Treatment" // Quad combo
     ],
     massage: [
       "Head Massage",
@@ -50,7 +52,8 @@ const BookingForm = () => {
       "Head + Back Massage",
       "Full Body + Foot Massage",
       "Head + Back + Foot Massage",
-      "Full Body + Back + Foot Massage"
+      "Full Body + Back + Foot Massage",
+      "Head + Full Body + Back + Foot Massage" // Quad combo
     ],
     wedding: [
       "Bride Complete Package",
@@ -68,7 +71,8 @@ const BookingForm = () => {
       "Haircut + Beard Trim": 330,
       "Hair Spa + Hair Color": 1300,
       "Haircut + Beard Trim + Hair Color": 1100,
-      "Haircut + Hair Spa + Hair Color": 1450
+      "Haircut + Hair Spa + Hair Color": 1450,
+      "Haircut + Hair Spa + Beard Trim + Hair Color": 1800 // Quad price
     },
     skin: {
       Cleanup: 500,
@@ -78,7 +82,8 @@ const BookingForm = () => {
       "Cleanup + Facial": 1350,
       "Facial + Glow Treatment": 1800,
       "Cleanup + Facial + Glow Treatment": 2200,
-      "De-tan + Facial + Glow Treatment": 2300
+      "De-tan + Facial + Glow Treatment": 2300,
+      "Cleanup + Facial + De-tan + Glow Treatment": 2800 // Quad price
     },
     massage: {
       "Head Massage": 300,
@@ -88,7 +93,8 @@ const BookingForm = () => {
       "Head + Back Massage": 850,
       "Full Body + Foot Massage": 1800,
       "Head + Back + Foot Massage": 1200,
-      "Full Body + Back + Foot Massage": 2000
+      "Full Body + Back + Foot Massage": 2000,
+      "Head + Full Body + Back + Foot Massage": 2500 // Quad price
     },
     wedding: {
       "Bride Complete Package": 10000,
@@ -275,7 +281,7 @@ const BookingForm = () => {
               <div className="input-group">
                 <label>Total Amount</label>
                 <input type="text" value={`₹ ${amount}`} readOnly />
-                {amount >= 1200 && subOptions[0] !== "Bride Complete Package" && <small>Includes ₹200 Professional Stylist charge</small>}
+                {amount >= 1200 && subOptions[0].indexOf("Package") === -1 && <small>Includes ₹200 Professional Stylist charge</small>}
               </div>
             )}
 
@@ -288,3 +294,4 @@ const BookingForm = () => {
 };
 
 export default BookingForm;
+
