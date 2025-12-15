@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./booking-form.css";
 
-/* ===============================
-   Razorpay Loader
-================================ */
 const loadRazorpay = () => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -23,21 +20,84 @@ const BookingForm = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
+  // Service & Sub-Service Options
   const serviceOptions = {
-    hair: ["Haircut", "Hair Spa", "Beard Trim", "Hair Color"],
-    skin: ["Cleanup", "Facial", "De-tan", "Glow Treatment"],
-    massage: ["Head Massage", "Full Body Massage", "Back Massage", "Foot Massage"],
+    hair: [
+      "Haircut",
+      "Hair Spa",
+      "Beard Trim",
+      "Hair Color",
+      "Haircut + Beard Trim",
+      "Hair Spa + Hair Color",
+      "Haircut + Beard Trim + Hair Color",
+      "Haircut + Hair Spa + Hair Color"
+    ],
+    skin: [
+      "Cleanup",
+      "Facial",
+      "De-tan",
+      "Glow Treatment",
+      "Cleanup + Facial",
+      "Facial + Glow Treatment",
+      "Cleanup + Facial + Glow Treatment",
+      "De-tan + Facial + Glow Treatment"
+    ],
+    massage: [
+      "Head Massage",
+      "Full Body Massage",
+      "Back Massage",
+      "Foot Massage",
+      "Head + Back Massage",
+      "Full Body + Foot Massage",
+      "Head + Back + Foot Massage",
+      "Full Body + Back + Foot Massage"
+    ],
+    wedding: [
+      "Bride Complete Package",
+      "Groom Complete Package",
+      "Bride + Groom Complete Package"
+    ]
   };
 
   const servicePrices = {
-    hair: { Haircut: 200, "Hair Spa": 600, "Beard Trim": 150, "Hair Color": 800 },
-    skin: { Cleanup: 500, Facial: 900, "De-tan": 700, "Glow Treatment": 1000 },
-    massage: { "Head Massage": 300, "Full Body Massage": 1500, "Back Massage": 600, "Foot Massage": 400 },
+    hair: {
+      Haircut: 250,
+      "Hair Spa": 600,
+      "Beard Trim": 150,
+      "Hair Color": 800,
+      "Haircut + Beard Trim": 330,
+      "Hair Spa + Hair Color": 1300,
+      "Haircut + Beard Trim + Hair Color": 1100,
+      "Haircut + Hair Spa + Hair Color": 1450
+    },
+    skin: {
+      Cleanup: 500,
+      Facial: 900,
+      "De-tan": 700,
+      "Glow Treatment": 1000,
+      "Cleanup + Facial": 1350,
+      "Facial + Glow Treatment": 1800,
+      "Cleanup + Facial + Glow Treatment": 2200,
+      "De-tan + Facial + Glow Treatment": 2300
+    },
+    massage: {
+      "Head Massage": 300,
+      "Full Body Massage": 1500,
+      "Back Massage": 600,
+      "Foot Massage": 400,
+      "Head + Back Massage": 850,
+      "Full Body + Foot Massage": 1800,
+      "Head + Back + Foot Massage": 1200,
+      "Full Body + Back + Foot Massage": 2000
+    },
+    wedding: {
+      "Bride Complete Package": 10000,
+      "Groom Complete Package": 8000,
+      "Bride + Groom Complete Package": 17000
+    }
   };
 
-  /* ===============================
-     PRICE CALCULATOR
-  ================================ */
+  // Price Calculation
   const calculateAmount = () => {
     const service = document.querySelector("select[name='service']")?.value;
     const subService = document.querySelector("select[name='subService']")?.value;
@@ -48,9 +108,10 @@ const BookingForm = () => {
       return;
     }
 
-    let total = servicePrices[service][subService];
+    let total = servicePrices[service][subService] || 0;
 
-    if (barber === "Professional Stylist") {
+    // Professional extra only for non-wedding services
+    if (barber === "Professional Stylist" && service !== "wedding") {
       total += PROFESSIONAL_EXTRA;
     }
 
@@ -63,17 +124,10 @@ const BookingForm = () => {
     setAmount(0);
   };
 
-  const handleSubServiceChange = () => {
-    calculateAmount();
-  };
+  const handleSubServiceChange = () => calculateAmount();
+  const handleBarberChange = () => calculateAmount();
 
-  const handleBarberChange = () => {
-    calculateAmount();
-  };
-
-  /* ===============================
-     PAYMENT
-  ================================ */
+  // Payment
   const initiatePayment = async (bookingId, amount, email, fullName) => {
     const loaded = await loadRazorpay();
     if (!loaded) {
@@ -114,9 +168,7 @@ const BookingForm = () => {
     }
   };
 
-  /* ===============================
-     SUBMIT
-  ================================ */
+  // Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -189,6 +241,7 @@ const BookingForm = () => {
                 <option value="hair">Hair Care</option>
                 <option value="skin">Skin Care</option>
                 <option value="massage">Massage</option>
+                <option value="wedding">Wedding Package</option>
               </select>
             </div>
 
@@ -222,7 +275,7 @@ const BookingForm = () => {
               <div className="input-group">
                 <label>Total Amount</label>
                 <input type="text" value={`₹ ${amount}`} readOnly />
-                {amount >= 1200 && <small>Includes ₹200 Professional Stylist charge</small>}
+                {amount >= 1200 && subOptions[0] !== "Bride Complete Package" && <small>Includes ₹200 Professional Stylist charge</small>}
               </div>
             )}
 
