@@ -114,7 +114,20 @@ const BookingForm = () => {
       return;
     }
 
-    let total = servicePrices[service][subService] || 0;
+    let total = 0;
+
+    if (service.includes("_")) {
+      const parts = subService.split(" + ");
+
+      parts.forEach(part => {
+        if (servicePrices.hair[part]) total += servicePrices.hair[part];
+        if (servicePrices.skin[part]) total += servicePrices.skin[part];
+        if (servicePrices.massage[part]) total += servicePrices.massage[part];
+      });
+    } else {
+      total = servicePrices[service][subService] || 0;
+    }
+
 
     // Professional extra only for non-wedding services
     if (barber === "Professional Stylist" && service !== "wedding") {
@@ -126,7 +139,43 @@ const BookingForm = () => {
 
   const handleServiceChange = (e) => {
     const service = e.target.value;
-    setSubOptions(serviceOptions[service] || []);
+    let options = [];
+
+    if (service === "hair_skin") {
+      serviceOptions.hair.forEach(h =>
+        serviceOptions.skin.forEach(s =>
+          options.push(`${h} + ${s}`)
+        )
+      );
+    }
+    else if (service === "hair_massage") {
+      serviceOptions.hair.forEach(h =>
+        serviceOptions.massage.forEach(m =>
+          options.push(`${h} + ${m}`)
+        )
+      );
+    }
+    else if (service === "skin_massage") {
+      serviceOptions.skin.forEach(s =>
+        serviceOptions.massage.forEach(m =>
+          options.push(`${s} + ${m}`)
+        )
+      );
+    }
+    else if (service === "hair_skin_massage") {
+      serviceOptions.hair.forEach(h =>
+        serviceOptions.skin.forEach(s =>
+          serviceOptions.massage.forEach(m =>
+            options.push(`${h} + ${s} + ${m}`)
+          )
+        )
+      );
+    }
+    else {
+      options = serviceOptions[service] || [];
+    }
+
+    setSubOptions(options);
     setAmount(0);
   };
 
@@ -247,6 +296,17 @@ const BookingForm = () => {
                 <option value="hair">Hair Care</option>
                 <option value="skin">Skin Care</option>
                 <option value="massage">Massage</option>
+
+                {/* 🔥 DOUBLE COMBO */}
+                <option value="hair_skin">Hair Care + Skin Care</option>
+                <option value="hair_massage">Hair Care + Massage</option>
+                <option value="skin_massage">Skin Care + Massage</option>
+
+                {/* 🔥 TRIPLE COMBO */}
+                <option value="hair_skin_massage">
+                  Hair Care + Skin Care + Massage
+                </option>
+
                 <option value="wedding">Wedding Package</option>
               </select>
             </div>
