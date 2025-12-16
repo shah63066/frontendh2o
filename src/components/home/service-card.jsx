@@ -6,7 +6,7 @@ import "./service-card.css";
 const Services = () => {
   const menServices = [
     { img: "/images/service-card/mskincare.jpg", title: "Skin Care" },
-    { img: "/images/service-card/polishing.jpg", title: "Polishing" },
+    // { img: "/images/service-card/polishing.jpg", title: "Polishing" },
     { img: "/images/service-card/mhaircare.jpg", title: "Hair Care" },
     { img: "/images/service-card/massage.jpg", title: "Massage" },
     { img: "/images/service-card/mmakeup.jpg", title: "Makeup" },
