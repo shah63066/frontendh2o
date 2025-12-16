@@ -23,7 +23,7 @@ const ServicePrice = () => {
       </Section>
 
       {/* ---------------- POLISHING ---------------- */}
-      <Section title="Polishing">
+      {/* <Section title="Polishing">
         <Row items={[
           { code: "P1", title: "Hand Polishing", rate: "★★★★★ 4.7", desc: "Brightening hand polish.", price: "₹399" },
           { code: "P2", title: "Foot Polishing", rate: "★★★★★ 4.8", desc: "Soft & detan foot polish.", price: "₹499" },
@@ -35,7 +35,7 @@ const ServicePrice = () => {
           { code: "P5", title: "Full Body Polish", rate: "★★★★★ 4.9", desc: "Full body brightening.", price: "₹1499" },
           { code: "P6", title: "Detan Polish", rate: "★★★★★ 4.8", desc: "Deep tan removal.", price: "₹799" },
         ]} />
-      </Section>
+      </Section> */}
 
       {/* ---------------- HAIR CARE ---------------- */}
       <Section title="Hair Care">
