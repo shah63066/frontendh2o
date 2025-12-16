@@ -17,7 +17,7 @@ const Services = () => {
     { img: "/images/service-card/skincare.jpg", title: "Skin Care" },
     { img: "/images/service-card/haircare.jpg", title: "Hair Care" },
     { img: "/images/service-card/bodyspa.jpg", title: "Body Spa" },
-    { img: "/images/service-card/nailsalon.jpg", title: "Nail Salon" },
+    // { img: "/images/service-card/nailsalon.jpg", title: "Nail Salon" },
     { img: "/images/service-card/makeup.jpg", title: "Makeup" },
     { img: "/images/service-card/wedding.jpg", title: "Wedding" },
   ];
